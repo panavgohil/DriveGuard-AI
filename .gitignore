@@ -1,6 +1,5 @@
 # Virtual Environments
 venv/
-mp_env/
 mpcnn_env/
 
 # Python cache
@@ -14,10 +13,6 @@ __pycache__/
 # TensorBoard logs
 logs/
 
-# Trained models
-*.h5
-*.keras
-
 # Jupyter
 .ipynb_checkpoints/
 
@@ -25,8 +20,11 @@ logs/
 .DS_Store
 Thumbs.db
 
-# Git metadata files
+# Log files
 *.log
 
-# Dataset (if stored locally)
+# Dataset (if local)
 dataset/
+
+# Trained models
+*.h5
