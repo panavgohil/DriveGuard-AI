@@ -1,22 +1,32 @@
-# Virtual environment
+# Virtual Environments
 venv/
+mp_env/
+mpcnn_env/
 
 # Python cache
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 
 # VS Code
 .vscode/
 
-# Model files
+# TensorBoard logs
+logs/
+
+# Trained models
 *.h5
 *.keras
 
-# TensorBoard logs
-logs/
+# Jupyter
+.ipynb_checkpoints/
 
 # OS files
 .DS_Store
 Thumbs.db
 
-*.keras
+# Git metadata files
+*.log
+
+# Dataset (if stored locally)
+dataset/
