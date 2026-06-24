@@ -29,7 +29,7 @@ def get_eye_crop(face_landmarks, eye_indices, frame):
 
 
 
-    padding=15
+    padding=25
 
 
 
