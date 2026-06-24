@@ -1,7 +1,6 @@
 import cv2
 import mediapipe as mp
-from tensorflow.keras.models import load_model
-import numpy as np
+
 mp_face_mesh = mp.solutions.face_mesh
 LEFT_EYE = [33, 160, 158, 133, 153, 144]
 RIGHT_EYE = [362, 385, 387, 263, 373, 380]
@@ -10,8 +9,8 @@ face_mesh = mp_face_mesh.FaceMesh(
     max_num_faces=1,
     refine_landmarks=True
 )
-model=load_model("drowsiness_model.keras")
-print("model loaded")
+
+
 cap = cv2.VideoCapture(0)
 def get_eye_crop(face_landmarks, eye_indices, frame):
     h,w,_=frame.shape
@@ -27,7 +26,13 @@ def get_eye_crop(face_landmarks, eye_indices, frame):
     x_max=max(x_coords)
     y_min=min(y_coords)
     y_max=max(y_coords)
-    padding=10
+
+
+
+    padding=15
+
+
+
     x_min = max(0, x_min - padding)
     y_min = max(0, y_min - padding)
 
@@ -61,39 +66,17 @@ while True:
                     (86,86)
 
                 )
-                eye_input=left_eye_resized.astype("float32")/255.0
-                eye_input=np.expand_dims(
-                    eye_input,
-                    axis=-1
-                )
-                eye_input=np.expand_dims(
-                    eye_input,
-                    axis=0
-                
-                )
-                print(eye_input.shape)
-                prediction=model.predict(
-                    eye_input,
-                    verbose=0
-                )[0][0]
-                print("Prediction:", prediction)
                 cv2.imshow(
-                    "processed eye",
+                    "Processed Eye",
                     left_eye_resized
                 )
-                if prediction > 0.5:
-                    state = f"SLEEPY {prediction:.2f}"
-                else:
-                    state = f"AWAKE {(1-prediction):.2f}"
-                cv2.putText(
-                    frame,
-                    state,
-                    (50, 50),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    1,
-                    (0, 255, 0),
-                    2
+
+                cv2.imwrite(
+                   "current_eye.jpg",
+                    left_eye_resized
                 )
+                
+              
             # Left eye
             for idx in LEFT_EYE:
                 x = int(face_landmarks.landmark[idx].x * w)
